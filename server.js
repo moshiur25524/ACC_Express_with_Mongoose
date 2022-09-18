@@ -10,7 +10,7 @@ const dbConnect = require("./utils/dbConnect");
 mongoose.connect(process.env.DATABASE_LOCAL).then(()=>{
   console.log('Database connection is successfull' .blue.bold);
 })
-// dbConnect()
+
 
 // server
 const port = process.env.PORT || 8080;
