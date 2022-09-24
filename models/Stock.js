@@ -1,9 +1,14 @@
 const mongoose = require('mongoose')
-const {ObjectId} = mongoose.Schema.Types;
+const { ObjectId } = mongoose.Schema.Types;
 
 // Product Schema Design
 
-const productSchema = mongoose.Schema({
+const stockSchema = mongoose.Schema({
+  ProductId: {
+    type: ObjectId,
+    required: true,
+    ref: 'Product'
+  },
   name: {
     type: String,
     required: [true, 'Please provide the name of the product'],
@@ -43,9 +48,20 @@ const productSchema = mongoose.Schema({
       message: 'Please Provide the valid URLs'
     }
   }],
+  price: {
+    type: Number,
+    required: true,
+    min: [0, "Product Price can't be nagetive"]
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    min: [0, "Product quantity can't be nagetive"]
+  },
   category: {
     type: String,
-    required: true
+    required: true,
+    min: [0, "Please Provide a Category"]
   },
   brand: {
     name: {
@@ -56,6 +72,43 @@ const productSchema = mongoose.Schema({
       type: ObjectId,
       ref: "Brand",
       required: true
+    }
+  },
+  status: {
+    type: String,
+    required: true,
+    enum: {
+      values: ['in-stock', 'out-of-stock'],
+      message: "Status can't be {VALUE}"
+    }
+  },
+  store: {
+    name: {
+      type: String,
+      trim: true,
+      required: [true, 'Please Provide the store Name'],
+      lowercase: true,
+      enum: {
+        values: ['dhaka', 'khulna', 'rajshahi', 'chittagong', 'sylet', 'barishal', 'mymensingh', 'rangpur'],
+        message: "{VALUE} is not a valid name"
+      }
+    },
+    id:{
+      type: ObjectId,
+      required: true,
+      ref:"Store"
+    }
+  },
+  suppliedBy:{
+    name: {
+      type: String,
+      required: [true, 'Please provide the name of the product'],
+      trim: true,
+      unique: [true, 'Name must be unique']
+    },
+    id:{
+      type: ObjectId,
+      ref:"Supplier"
     }
   }
 
@@ -72,6 +125,6 @@ productSchema.pre('save', function (next) {
   next()
 })
 
-const Product = mongoose.model('Product', productSchema)
+const Stock = mongoose.model('Stock', stockSchema)
 
-module.exports = Product;
+module.exports = Stock;
