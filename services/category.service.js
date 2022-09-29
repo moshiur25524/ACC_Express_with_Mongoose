@@ -10,7 +10,7 @@ exports.getCategoriesService = async()=>{
     return result
 }
 
-exports.getACategoryService = async(id)=>{
-    const result =  await Category.findOne({_id:id})
-    return result
-}
+// exports.getACategoryService = async(id)=>{
+//     const result =  await Category.findOne({_id:id})
+//     return result
+// }

@@ -8,8 +8,8 @@ router
 .get(categoryControllers.getCategories)
 .post(categoryControllers.createACategory)
 
-router
-.route('/:id')
-.get(categoryControllers.getACategory)
+// router
+// .route('/:id')
+// .get(categoryControllers.getACategory)
 
 module.exports = router
