@@ -20,19 +20,19 @@ exports.createSupplier = async(req, res) =>{
     }
 }
 
-exports.getBrands = async(req, res, next) =>{
+exports.getSuppliers = async(req, res, next) =>{
     try{
-        const brands = await getSupplierService()
+        const suppliers = await getSupplierService()
         res.status(200).json({
             status: 'success',
-            message: 'The Brands get is successfull',
-            data: brands
+            message: 'The Supplier get is successfull',
+            data: suppliers
         })
     }
     catch(error){
         res.status(400).json({
             status:'fail',
-            message:'The Brand find is failed',
+            message:'The Suppliers find is failed',
             error: error.message
         })
     }
@@ -59,7 +59,7 @@ exports.getABrand = async(req, res, next) =>{
 exports.updateABrandById = async(req, res, next) =>{
     try{
         const {id} = req.params;
-        const brand = await updateABrandService(id, req.body)
+        const brand = await updateASupplierService(id, req.body)
 
         if(!brand.nModified){
             res.status(400).json({
