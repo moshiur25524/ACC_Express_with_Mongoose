@@ -13,6 +13,7 @@ const productRoutes = require('./routes/product.routes.js')
 const brandRoutes = require('./routes/brand.route')
 const categoryRoutes = require('./routes/categories.route')
 const storeRoutes = require('./routes/store.route')
+const supplierRoutes = require('./routes/supplier.route')
 
 app.get('/', (req, res)=>{
   res.send('route is working ')
@@ -22,5 +23,6 @@ app.use('/api/v1/product', productRoutes)
 app.use('/api/v1/brand', brandRoutes)
 app.use('/api/v1/category', categoryRoutes)
 app.use('/api/v1/store', storeRoutes)
+app.use('/api/v1/supplier', supplierRoutes)
 
 module.exports = app;

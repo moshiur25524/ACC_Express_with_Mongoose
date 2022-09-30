@@ -79,4 +79,15 @@ const supplierSchema = mongoose.Schema({
         required: true,
         validate: [validator.isURL, 'Please Provide a valide URL']
     },
-})
+    status:{
+        type: String,
+        default: 'active',
+        enum: ['active','in-active']
+    }
+},{
+    timestamps: true
+});
+
+const Supplier = mongoose.model('Supplier',supplierSchema)
+
+module.exports = Supplier
