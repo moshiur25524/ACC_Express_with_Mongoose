@@ -4,7 +4,7 @@ const uploader = require('../middleware/uploader')
 
 const router = express.Router()
 
-router.post('/file-upload',uploader.single("image"), productControllers.fileUpload);
+router.post('/file-upload',uploader.array("image"), productControllers.fileUpload);
 
 {/* <input type="file" name="image" id="" />;
 const formData = new formData();
