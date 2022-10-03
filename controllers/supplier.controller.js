@@ -1,14 +1,14 @@
-const { createBrandService, getBrandsService, getABrandService, updateABrandService } = require("../services/brand.service")
-const { getSupplierService } = require("../services/supplier.service")
+
+const {  updateASupplierService, getASupplierByIdService, createSupplierService, getSuppliersService } = require("../services/supplier.service")
 
 
 exports.createSupplier = async(req, res) =>{
     try{
-        const brand = await createSupplierService(req.body)
+        const supplier = await createSupplierService(req.body)
         res.status(200).json({
             status: 'success',
             message: 'The Supplier creation is successfull',
-            data: brand
+            data: supplier
         })
     }
     catch(error){
@@ -22,7 +22,7 @@ exports.createSupplier = async(req, res) =>{
 
 exports.getSuppliers = async(req, res, next) =>{
     try{
-        const suppliers = await getSupplierService()
+        const suppliers = await getSuppliersService()
         res.status(200).json({
             status: 'success',
             message: 'The Supplier get is successfull',
@@ -38,46 +38,46 @@ exports.getSuppliers = async(req, res, next) =>{
     }
 }
 
-exports.getABrand = async(req, res, next) =>{
+exports.getASupplierById = async(req, res, next) =>{
     try{
         const {id} = req.params;
-        const brand = await getABrandService(id)
+        const supplier = await getASupplierByIdService(id)
         res.status(200).json({
             status: 'success',
-            message: 'The Brands get is successfull',
-            data: brand
+            message: 'The Suppliers get is successfull',
+            data: supplier
         })
     }
     catch(error){
         res.status(400).json({
             status:'fail',
-            message:'A Single Brand get is failed',
+            message:'A Single Supplier get is failed',
             error: error.message
         })
     }
 }
-exports.updateABrandById = async(req, res, next) =>{
+exports.updateSupplierById = async(req, res, next) =>{
     try{
         const {id} = req.params;
-        const brand = await updateASupplierService(id, req.body)
+        const supplier = await updateASupplierService(id, req.body)
 
-        if(!brand.nModified){
+        if(!supplier.nModified){
             res.status(400).json({
                 status: 'fail',
-                message: "Couldn't update the brand",
+                message: "Couldn't update the Supplier",
                 error: error.message
             })
         }
         res.status(200).json({
             status: 'success',
-            message: 'The Brand update is successfull',
-            data: brand
+            message: 'The Supplier update is successfull',
+            data: supplier
         })
     }
     catch(error){
         res.status(400).json({
             status:'fail',
-            message:'A Single Brand update is failed',
+            message:'A Single Supplier update is failed',
             error: error.message
         })
     }

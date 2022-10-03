@@ -9,7 +9,7 @@ router
 
 router
 .route('/:id')
-.get(suppliersControllers.getABrand)
-.patch(suppliersControllers.updateABrandById)
+.get(suppliersControllers.getASupplierById)
+.patch(suppliersControllers.updateSupplierById)
 
 module.exports = router

@@ -1,7 +1,23 @@
 const Supplier = require("../models/Supplier")
 
 
-exports.getSupplierService = async() =>{
+exports.createSupplierService = async(data) =>{
+    const result = await Supplier.create(data) 
+    return result
+}
+
+exports.getSuppliersService = async() =>{
     const suppliers = await Supplier.find({})
     return suppliers
+}
+
+exports.getASupplierByIdService = async(id) =>{
+    const supplier = await Supplier.findOne({_id: id})
+    return supplier
+}
+exports.updateASupplierService = async(id,data) =>{
+    const result = await Supplier.updateOne({_id: id}, data,{
+        runValidators: true
+    })
+    return result
 }
