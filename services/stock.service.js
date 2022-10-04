@@ -2,19 +2,24 @@ const express = require('express');
 const Stock = require('../models/Stock')
 
 exports.getStockServices = async (filters, queries) => {
-    const products = await Stock.find(filters)
+    const stocks = await Stock.find(filters)
         .skip(queries.skip)
         .limit(queries.limit)
         .select(queries.fields)
         .sort(queries.sortBy)
-    const totalProducts = await Stock.countDocuments(filters)
-    const pageCount = Math.ceil(totalProducts / queries.limit)
-    return { totalProducts, pageCount, products };
+    const total = await Stock.countDocuments(filters)
+    const page = Math.ceil(total / queries.limit)
+    return { totalStocks: total, pageCount: page, stocks };
+}
+
+exports.getStockByIdService = async(id) =>{
+    const stock = await Stock.findOne({_id: id}).populate("store.id").populate('suppliedBy.id').populate('brand.id')
+    return stock
 }
 
 exports.createStockServices = async (data) => {
-    const product = await await Stock.create(data)
-    return product
+    const stock = await await Stock.create(data)
+    return stock
 }
 
 exports.updateStockService = async (productId, data) => {

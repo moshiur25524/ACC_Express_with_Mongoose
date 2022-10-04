@@ -1,12 +1,11 @@
 // const Stock = require("../models/Stock.model")
-const { getStockServices, createStockServices, updateStockService, deleteAStockService } = require("../services/stock.service");
+const Stock = require("../models/Stock");
+const { getStockServices, createStockServices, updateStockService, deleteAStockService, getStockByIdService } = require("../services/stock.service");
 
 
 exports.getStock = async (req, res, next) => {
   try {
 
-    // price: {$gt: 500}
-    console.log(req.query);
     let filters = { ...req.query };
 
     // page, limit, sort --> exclude
@@ -46,6 +45,32 @@ exports.getStock = async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       data: stocks
+    })
+  }
+  catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: "Data can't found 😭"
+    })
+  }
+}
+
+exports.getStockById = async(req, res) =>{
+  try {
+    const {id} = req.params;
+    const stock = await getStockByIdService(id)
+
+    if(!stock){
+      return res.status(400).json({
+        status: 'fail',
+        message: 'Cannot get the stock with this Id 🥺',
+        error: error.message
+      })
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: stock
     })
   }
   catch (error) {

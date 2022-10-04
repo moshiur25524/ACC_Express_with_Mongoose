@@ -11,9 +11,9 @@ router
 
 router
 .route('/:id')
-// .get(stockControllers)
-.delete(stockControllers.deleteAStock)
-.patch(stockControllers.updateAStock)
+.get(stockControllers.getStockById)
+// .delete(stockControllers.deleteAStock)
+// .patch(stockControllers.updateAStock)
 
 
 module.exports = router;

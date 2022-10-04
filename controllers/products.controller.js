@@ -72,7 +72,7 @@ exports.saveProduct = async (req, res, next) => {
 
     const result = await createProductServices(req.body)
 
-    result.logger()
+    // result.logger()
     // const product = new Product(req.body)
 
     // const result = await product.save()
