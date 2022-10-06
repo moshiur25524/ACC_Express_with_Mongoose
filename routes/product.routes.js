@@ -32,7 +32,7 @@ router
 router
 .route('/:id')
 .patch(productControllers.updateAProduct)
-.delete(productControllers.deleteAProduct)
+.delete(authorization('admin'),productControllers.deleteAProduct)
 
 
 module.exports = router

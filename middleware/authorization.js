@@ -1,8 +1,17 @@
-const middleware = (req, res, next) =>{
+// const middleware = (req, res, next) =>{
 
-    next()
-}
+//     next()
+// }
 
 module.exports = (...role) =>{
-    return middleware
+    return (req, res, next) =>{
+        const userRole = req.user.role;
+        if(!role.includes(userRole)){
+            return res.status(403).json({
+                status: 'fail',
+                error: 'You are not authorized to access this'
+            })
+        }
+        next()
+    }
 }
