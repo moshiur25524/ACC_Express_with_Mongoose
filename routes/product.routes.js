@@ -1,8 +1,12 @@
 const express = require('express')
 const productControllers = require('../controllers/products.controller')
-const uploader = require('../middleware/uploader')
+const uploader = require('../middleware/uploader');
+const verifyToken = require('../middleware/verifyToken');
+const authorization = require('../middleware/authorization')
 
 const router = express.Router()
+
+// router.use(verifyToken)
 
 router.post('/file-upload',uploader.array("image"), productControllers.fileUpload);
 
@@ -22,7 +26,7 @@ router
 router
 .route('/')
 .get(productControllers.getProduct)
-.post(productControllers.saveProduct)
+.post(verifyToken,authorization('admin' , 'store-manager'),productControllers.saveProduct)
 
 
 router
